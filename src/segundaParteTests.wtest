@@ -1,0 +1,48 @@
+import mensajeros.*
+import destinos.*
+import transportes.*
+
+test "contratar y despedir mensajeros" {
+	
+	mensajeria.contratar(neo)
+	assert.that(mensajeria.mensajeros().contains(neo))
+	mensajeria.despedir(neo)
+	assert.that(mensajeria.mensajeros().isEmpty() )
+	
+}
+
+test "contratar y despedir a todos" {
+	mensajeria.contratar(neo)
+	mensajeria.contratar(chuckNorris)
+	mensajeria.contratar(roberto)
+	assert.equals(3, mensajeria.mensajeros().size() )
+	mensajeria.despedirATodos()
+	assert.that(mensajeria.mensajeros().isEmpty() )
+
+}
+
+test "la empresa de mensajeria es grande" {
+	mensajeria.contratar(neo)
+	mensajeria.contratar(chuckNorris)
+	mensajeria.contratar(roberto)
+	assert.that(mensajeria.esGrande() )
+}
+
+test "el paquete puede ser enviado por el primer mensajero" {
+	paquete.estaPago(true)
+	paquete.destino(laMatrix)
+	mensajeria.contratar(neo)
+	mensajeria.contratar(chuckNorris)
+	mensajeria.contratar(roberto)
+	neo.credito(50)
+	assert.that(mensajeria.paquetePuedeSerEnviadoPorElPrimero(paquete))
+}
+
+test "peso del ultimo mensajero de la empresa"{
+	
+	mensajeria.contratar(neo)
+	mensajeria.contratar(chuckNorris)
+	mensajeria.contratar(roberto)
+	roberto.peso(90)
+	assert.equals(90,mensajeria.pesoUltimoMensajero())
+}

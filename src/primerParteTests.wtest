@@ -1,0 +1,20 @@
+import mensajeros.*
+import destinos.*
+import transportes.*
+
+test "Roberto lleva paquete pago en camion con un acoplado" {
+	paquete.estaPago(true)
+	paquete.destino(puenteDeBrooklyn)
+	roberto.peso(90)
+	camion.acoplados(1)
+	roberto.transporte(camion)
+	assert.that(paquete.puedeSerEnviadoPor(roberto))
+
+}
+
+test "Neo tiene credito para entrar a la matrx pero el paquete no esta pago"{
+	paquete.estaPago(false)
+	paquete.destino(laMatrix)
+	neo.credito(40)
+	assert.that(not paquete.puedeSerEnviadoPor(neo))
+}
